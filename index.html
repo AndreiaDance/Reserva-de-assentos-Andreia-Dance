@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Mapa de Assentos - Companhia Andreia Dance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -32,7 +33,7 @@
     .legenda {
       background-color: #ffffffcc;
       padding: 15px 25px;
-      font-size: 1.4em;
+      font-size: 1.2em;
       margin: 30px auto;
       max-width: 600px;
       border-radius: 12px;
@@ -46,6 +47,7 @@
     }
     .fileira {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       margin: 4px;
     }
@@ -56,8 +58,8 @@
       color: #333;
     }
     .assento {
-      width: 44px;
-      height: 44px;
+      width: 34px;
+      height: 34px;
       margin: 3px;
       background-color: #ddd;
       border: 1px solid #999;
@@ -66,7 +68,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      font-size: 10px;
       transition: 0.2s;
     }
     .assento:hover {
@@ -84,25 +86,31 @@
       width: 20px;
     }
     #formulario {
-      margin-top: 20px;
+      margin-top: 25px;
       display: none;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
     }
     #formulario input {
-      padding: 10px;
-      margin: 6px;
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
       border-radius: 6px;
       border: 1px solid #ccc;
-      font-size: 1em;
+      font-size: 1.1em;
     }
     #formulario button {
-      padding: 12px 25px;
+      padding: 14px 25px;
       border: none;
       background-color: #4caf50;
       color: white;
       border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
-      font-size: 1em;
+      font-size: 1.1em;
+      width: 100%;
     }
     .palco {
       margin: 30px auto 10px;
@@ -124,9 +132,10 @@
   </div>
 
   <div class="legenda">
-    Toque nos assentos para selecionar. Verde = selecionado, vermelho = já reservado. <br>
-    Cada botão mostra a fileira (letra) e o número do assento (ex: A15, J03). <br>
-    Há um corredor entre os assentos 10 e 11.
+    Olá! ✨ Toque nos assentos disponíveis abaixo para selecionar onde deseja se sentar no espetáculo. <br><br>
+    Os assentos selecionados ficam verdes. Os que já foram reservados aparecem em vermelho. <br><br>
+    Cada botão mostra a fileira (letra) e o número do assento (ex: A15, J03). Há um corredor entre os assentos 10 e 11. <br><br>
+    Ao final da escolha, preencha seu nome e e-mail no formulário para concluir a reserva 💌
   </div>
 
   <div class="palco">PALCO</div>
