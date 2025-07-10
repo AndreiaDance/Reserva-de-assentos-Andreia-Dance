@@ -39,31 +39,29 @@
       border-radius: 12px;
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
     }
-    .mapa {
+    .container-mapa {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 20px;
+      overflow-x: auto;
     }
-    .fileira {
-      display: flex;
-      flex-wrap: wrap;
+    .mapa {
+      display: grid;
+      grid-template-columns: repeat(20, auto);
+      gap: 5px;
       justify-content: center;
-      margin: 4px;
+      max-width: 95vw;
+      padding: 10px;
     }
-    .divisoria {
-      margin: 30px 0 10px;
-      font-weight: bold;
-      font-size: 1.4em;
-      color: #333;
+    .linha-fileira {
+      display: contents;
     }
     .assento {
       width: 34px;
       height: 34px;
-      margin: 3px;
       background-color: #ddd;
       border: 1px solid #999;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -82,8 +80,21 @@
       background-color: #4caf50;
       color: white;
     }
+    .palco {
+      margin: 30px auto 10px;
+      padding: 12px 70px;
+      background-color: #555;
+      color: white;
+      font-weight: bold;
+      border-radius: 12px;
+      display: inline-block;
+      font-size: 1.2em;
+    }
     .corredor {
-      width: 20px;
+      width: 5px;
+    }
+    .linha {
+      display: contents;
     }
     #formulario {
       margin-top: 25px;
@@ -112,15 +123,11 @@
       font-size: 1.1em;
       width: 100%;
     }
-    .palco {
-      margin: 30px auto 10px;
-      padding: 12px 70px;
-      background-color: #555;
-      color: white;
+    .divisoria {
+      margin-top: 20px;
       font-weight: bold;
-      border-radius: 12px;
-      display: inline-block;
-      font-size: 1.2em;
+      font-size: 1.3em;
+      color: #444;
     }
   </style>
 </head>
@@ -139,7 +146,10 @@
   </div>
 
   <div class="palco">PALCO</div>
-  <div class="mapa" id="mapa"></div>
+
+  <div class="container-mapa">
+    <div class="mapa" id="mapa"></div>
+  </div>
 
   <form id="formulario" onsubmit="enviarReserva(); return false;">
     <p><strong>Assentos selecionados:</strong> <span id="selecionados"></span></p>
@@ -156,7 +166,6 @@
     };
 
     const segundoPavimento = ['K', 'L', 'M'];
-
     const mapaDiv = document.getElementById('mapa');
     const selecionadosSpan = document.getElementById('selecionados');
     const formulario = document.getElementById('formulario');
@@ -173,21 +182,18 @@
         jaDividiu = true;
       }
 
-      const fileiraDiv = document.createElement('div');
-      fileiraDiv.classList.add('fileira');
-
       for (let i = 1; i <= fileiras[letra]; i++) {
-        if (i === 11) {
-          const corredor = document.createElement('div');
-          corredor.classList.add('corredor');
-          fileiraDiv.appendChild(corredor);
-        }
-
         const assentoId = letra + i.toString().padStart(2, '0');
         const btn = document.createElement('div');
         btn.classList.add('assento');
         btn.dataset.assento = assentoId;
         btn.innerText = assentoId;
+
+        if (i === 11) {
+          const spacer = document.createElement('div');
+          spacer.classList.add('corredor');
+          mapaDiv.appendChild(spacer);
+        }
 
         btn.onclick = () => {
           if (btn.classList.contains('reservado')) return;
@@ -205,10 +211,8 @@
           formulario.style.display = assentosSelecionados.length ? 'block' : 'none';
         };
 
-        fileiraDiv.appendChild(btn);
+        mapaDiv.appendChild(btn);
       }
-
-      mapaDiv.appendChild(fileiraDiv);
     }
 
     function enviarReserva() {
