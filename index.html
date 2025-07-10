@@ -2,223 +2,86 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Mapa de Assentos - Companhia Andreia Dance</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserva de Assentos - Companhia Andreia Dance</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-      background: linear-gradient(to bottom right, #fef6f9, #e8f0ff);
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      background-color: #f8f8f8;
+      text-align: center;
     }
-    .cabecalho {
+    header {
       background-color: #fff;
       padding: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     .logo {
-      width: 140px;
-      margin-bottom: 10px;
+      max-width: 180px;
+      height: auto;
     }
-    h1 {
-      color: #333;
-      margin: 10px 0 5px 0;
-    }
-    h2 {
-      color: #666;
-      font-weight: normal;
-      margin: 0 0 15px 0;
-    }
-    .legenda {
-      background-color: #ffffffcc;
-      padding: 15px 25px;
-      font-size: 1.2em;
-      margin: 30px auto;
-      max-width: 600px;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+    .palco {
+      margin: 30px auto 10px;
+      background-color: #444;
+      color: white;
+      padding: 10px 60px;
+      font-size: 1.3em;
+      border-radius: 10px;
+      display: inline-block;
     }
     .mapa {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 20px;
+      gap: 5px;
+      padding: 20px;
     }
     .fileira {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 4px;
-    }
-    .divisoria {
-      margin: 30px 0 10px;
-      font-weight: bold;
-      font-size: 1.4em;
-      color: #333;
+      gap: 5px;
     }
     .assento {
-      width: 34px;
-      height: 34px;
-      margin: 3px;
       background-color: #ddd;
-      border: 1px solid #999;
-      border-radius: 8px;
-      cursor: pointer;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 0.9em;
+      font-weight: bold;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
-      transition: 0.2s;
-    }
-    .assento:hover {
-      background-color: #ccc;
-    }
-    .assento.reservado {
-      background-color: #ff6b6b;
-      cursor: not-allowed;
-    }
-    .assento.selecionado {
-      background-color: #4caf50;
-      color: white;
-    }
-    .corredor {
-      width: 20px;
-    }
-    #formulario {
-      margin-top: 25px;
-      display: none;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    #formulario input {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1.1em;
-    }
-    #formulario button {
-      padding: 14px 25px;
-      border: none;
-      background-color: #4caf50;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1.1em;
-      width: 100%;
-    }
-    .palco {
-      margin: 30px auto 10px;
-      padding: 12px 70px;
-      background-color: #555;
-      color: white;
-      font-weight: bold;
-      border-radius: 12px;
-      display: inline-block;
-      font-size: 1.2em;
     }
   </style>
 </head>
 <body>
-  <div class="cabecalho">
+  <header>
     <img src="IMG-20250106-WA0021.jpg" alt="Logo da Companhia Andreia Dance" class="logo">
-    <h1>Reserva de Assentos</h1>
-    <h2>Espetáculo de Fim de Ano</h2>
-  </div>
-
-  <div class="legenda">
-    Olá! ✨ Toque nos assentos disponíveis abaixo para selecionar onde deseja se sentar no espetáculo. <br><br>
-    Os assentos selecionados ficam verdes. Os que já foram reservados aparecem em vermelho. <br><br>
-    Cada botão mostra a fileira (letra) e o número do assento (ex: A15, J03). Há um corredor entre os assentos 10 e 11. <br><br>
-    Ao final da escolha, preencha seu nome e e-mail no formulário para concluir a reserva 💌
-  </div>
+  </header>
 
   <div class="palco">PALCO</div>
-  <div class="mapa" id="mapa"></div>
 
-  <form id="formulario" onsubmit="enviarReserva(); return false;">
-    <p><strong>Assentos selecionados:</strong> <span id="selecionados"></span></p>
-    <input type="text" id="nome" placeholder="Seu nome" required>
-    <input type="email" id="email" placeholder="Seu e-mail" required>
-    <button type="submit">Reservar</button>
-  </form>
+  <div class="mapa">
+    <!-- Fileiras A até J (Plateia) -->
+    <div class="fileira">A01 A02 A03 A04 A05 A06 A07 A08 A09 A10 A11 A12 A13 A14 A15 A16 A17 A18 A19 A20</div>
+    <div class="fileira">B01 B02 B03 B04 B05 B06 B07 B08 B09 B10 B11 B12 B13 B14 B15 B16 B17 B18 B19 B20</div>
+    <div class="fileira">C01 C02 C03 C04 C05 C06 C07 C08 C09 C10 C11 C12 C13 C14 C15 C16 C17 C18 C19 C20</div>
+    <div class="fileira">D01 D02 D03 D04 D05 D06 D07 D08 D09 D10 D11 D12 D13 D14 D15 D16 D17 D18 D19 D20</div>
+    <div class="fileira">E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 E16 E17 E18 E19 E20</div>
+    <div class="fileira">F01 F02 F03 F04 F05 F06 F07 F08 F09 F10 F11 F12 F13 F14 F15 F16 F17 F18 F19 F20</div>
+    <div class="fileira">G01 G02 G03 G04 G05 G06 G07 G08 G09 G10 G11 G12 G13 G14 G15 G16 G17 G18 G19 G20</div>
+    <div class="fileira">H01 H02 H03 H04 H05 H06 H07 H08 H09 H10 H11 H12 H13 H14 H15 H16 H17 H18 H19 G20</div>
+    <div class="fileira">I01 I02 I03 I04 I05 I06 I07 I08 I09 I10 I11 I12 I13 I14 I15 I16 I17 I18 I19</div>
+    <div class="fileira">J01 J02 J03 J04 J05 J06 J07 J08 J09 J10 J11 J12 J13 J14 J15 J16 J17 J18 J19</div>
 
-  <script>
-    const fileiras = {
-      'A': 20, 'B': 20, 'C': 20, 'D': 20, 'E': 20,
-      'F': 20, 'G': 20, 'H': 20, 'I': 19, 'J': 19,
-      'K': 20, 'L': 20, 'M': 20
-    };
+    <!-- Espaço visual -->
+    <div style="height: 30px;"></div>
 
-    const segundoPavimento = ['K', 'L', 'M'];
-
-    const mapaDiv = document.getElementById('mapa');
-    const selecionadosSpan = document.getElementById('selecionados');
-    const formulario = document.getElementById('formulario');
-    const assentosSelecionados = [];
-
-    let jaDividiu = false;
-
-    for (let letra in fileiras) {
-      if (!jaDividiu && segundoPavimento.includes(letra)) {
-        const divisoria = document.createElement('div');
-        divisoria.classList.add('divisoria');
-        divisoria.textContent = 'Segundo Pavimento';
-        mapaDiv.appendChild(divisoria);
-        jaDividiu = true;
-      }
-
-      const fileiraDiv = document.createElement('div');
-      fileiraDiv.classList.add('fileira');
-
-      for (let i = 1; i <= fileiras[letra]; i++) {
-        if (i === 11) {
-          const corredor = document.createElement('div');
-          corredor.classList.add('corredor');
-          fileiraDiv.appendChild(corredor);
-        }
-
-        const assentoId = letra + i.toString().padStart(2, '0');
-        const btn = document.createElement('div');
-        btn.classList.add('assento');
-        btn.dataset.assento = assentoId;
-        btn.innerText = assentoId;
-
-        btn.onclick = () => {
-          if (btn.classList.contains('reservado')) return;
-
-          btn.classList.toggle('selecionado');
-          const assento = btn.dataset.assento;
-
-          if (assentosSelecionados.includes(assento)) {
-            assentosSelecionados.splice(assentosSelecionados.indexOf(assento), 1);
-          } else {
-            assentosSelecionados.push(assento);
-          }
-
-          selecionadosSpan.textContent = assentosSelecionados.join(', ');
-          formulario.style.display = assentosSelecionados.length ? 'block' : 'none';
-        };
-
-        fileiraDiv.appendChild(btn);
-      }
-
-      mapaDiv.appendChild(fileiraDiv);
-    }
-
-    function enviarReserva() {
-      const nome = document.getElementById('nome').value;
-      const email = document.getElementById('email').value;
-
-      const corpo = `Reserva de assentos para o espetáculo da Companhia Andreia Dance.\n\nNome: ${nome}\nE-mail: ${email}\nAssentos: ${assentosSelecionados.join(', ')}`;
-
-      window.location.href = `mailto:companhiaandreiadance25@gmail.com?subject=Reserva de Assento&body=${encodeURIComponent(corpo)}`;
-    }
-  </script>
+    <!-- Segundo Pavimento (K, L, M) -->
+    <div class="fileira">K01 K02 K03 K04 K05 K06 K07 K08 K09 K10 K11 K12 K13 K14 K15 K16 K17 K18 K19 K20</div>
+    <div class="fileira">L01 L02 L03 L04 L05 L06 L07 L08 L09 L10 L11 L12 L13 L14 L15 L16 L17 L18 L19 L20</div>
+    <div class="fileira">M01 M02 M03 M04 M05 M06 M07 M08 M09 M10 M11 M12 M13 M14 M15 M16 M17 M18 M19 M20</div>
+  </div>
 </body>
 </html>
