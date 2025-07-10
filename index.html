@@ -23,6 +23,12 @@
       justify-content: center;
       margin: 3px;
     }
+    .divisoria {
+      margin: 20px;
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #333;
+    }
     .assento {
       width: 30px;
       height: 30px;
@@ -31,6 +37,10 @@
       border: 1px solid #999;
       border-radius: 4px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
     }
     .assento.reservado {
       background-color: #ff6b6b;
@@ -67,23 +77,38 @@
 
   <script>
     const fileiras = {
-      'A': 10, 'B': 10, 'C': 10, 'D': 10, 'E': 10, 'F': 10, 'G': 10, 'H': 10, 'I': 10, 'J': 10,
-      'K': 10, 'L': 10, 'M': 10
+      'A': 20, 'B': 20, 'C': 20, 'D': 20, 'E': 20,
+      'F': 20, 'G': 20, 'H': 20, 'I': 19, 'J': 19,
+      'K': 20, 'L': 20, 'M': 20
     };
+
+    const segundoPavimento = ['K', 'L', 'M'];
 
     const mapaDiv = document.getElementById('mapa');
     const selecionadosSpan = document.getElementById('selecionados');
     const formulario = document.getElementById('formulario');
     const assentosSelecionados = [];
 
+    let jaDividiu = false;
+
     for (let letra in fileiras) {
+      if (!jaDividiu && segundoPavimento.includes(letra)) {
+        const divisoria = document.createElement('div');
+        divisoria.classList.add('divisoria');
+        divisoria.textContent = 'Segundo Pavimento';
+        mapaDiv.appendChild(divisoria);
+        jaDividiu = true;
+      }
+
       const fileiraDiv = document.createElement('div');
       fileiraDiv.classList.add('fileira');
 
       for (let i = 1; i <= fileiras[letra]; i++) {
+        const assentoId = letra + i.toString().padStart(2, '0');
         const btn = document.createElement('div');
         btn.classList.add('assento');
-        btn.dataset.assento = letra + i.toString().padStart(2, '0');
+        btn.dataset.assento = assentoId;
+        btn.innerText = assentoId;
 
         btn.onclick = () => {
           if (btn.classList.contains('reservado')) return;
