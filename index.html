@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Mapa de Assentos - Companhia Andreia Dance</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      margin-top: 20px;
+    }
+    .mapa {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .fileira {
+      display: flex;
+      justify-content: center;
+      margin: 3px;
+    }
+    .assento {
+      width: 30px;
+      height: 30px;
+      margin: 2px;
+      background-color: #ddd;
+      border: 1px solid #999;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .assento.reservado {
+      background-color: #ff6b6b;
+      cursor: not-allowed;
+    }
+    .assento.selecionado {
+      background-color: #4caf50;
+    }
+    #formulario {
+      margin-top: 20px;
+      display: none;
+    }
+    .palco {
+      margin: 20px;
+      padding: 10px 60px;
+      background-color: #555;
+      color: white;
+      font-weight: bold;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Reserva de Assentos - Companhia Andreia Dance</h1>
+  <div class="palco">PALCO</div>
+  <div class="mapa" id="mapa"></div>
+
+  <form id="formulario" onsubmit="enviarReserva(); return false;">
+    <p>Assentos selecionados: <span id="selecionados"></span></p>
+    <input type="text" id="nome" placeholder="Seu nome" required>
+    <input type="email" id="email" placeholder="Seu e-mail" required>
+    <button type="submit">Reservar</button>
+  </form>
+
+  <script>
+    const fileiras = {
+      'A': 10, 'B': 10, 'C': 10, 'D': 10, 'E': 10, 'F': 10, 'G': 10, 'H': 10, 'I': 10, 'J': 10,
+      'K': 10, 'L': 10, 'M': 10
+    };
+
+    const mapaDiv = document.getElementById('mapa');
+    const selecionadosSpan = document.getElementById('selecionados');
+    const formulario = document.getElementById('formulario');
+    const assentosSelecionados = [];
+
+    for (let letra in fileiras) {
+      const fileiraDiv = document.createElement('div');
+      fileiraDiv.classList.add('fileira');
+
+      for (let i = 1; i <= fileiras[letra]; i++) {
+        const btn = document.createElement('div');
+        btn.classList.add('assento');
+        btn.dataset.assento = letra + i.toString().padStart(2, '0');
+
+        btn.onclick = () => {
+          if (btn.classList.contains('reservado')) return;
+
+          btn.classList.toggle('selecionado');
+          const assento = btn.dataset.assento;
+
+          if (assentosSelecionados.includes(assento)) {
+            assentosSelecionados.splice(assentosSelecionados.indexOf(assento), 1);
+          } else {
+            assentosSelecionados.push(assento);
+          }
+
+          selecionadosSpan.textContent = assentosSelecionados.join(', ');
+          formulario.style.display = assentosSelecionados.length ? 'block' : 'none';
+        };
+
+        fileiraDiv.appendChild(btn);
+      }
+
+      mapaDiv.appendChild(fileiraDiv);
+    }
+
+    function enviarReserva() {
+      const nome = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+
+      const corpo = `Reserva de assentos para o espetáculo da Companhia Andreia Dance.\n\nNome: ${nome}\nE-mail: ${email}\nAssentos: ${assentosSelecionados.join(', ')}`;
+
+      window.location.href = `mailto:companhiaandreiadance25@gmail.com?subject=Reserva de Assento&body=${encodeURIComponent(corpo)}`;
+    }
+  </script>
+</body>
+</html>
